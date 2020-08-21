@@ -1,8 +1,6 @@
 <template>
-  <div id="app" class="container-fluid h-100 p-4">
+  <div id="app" class="container-fluid h-100 p-0">
     <router-view></router-view>
-    <div>{{shared}}</div>
-    <h2>end</h2>
   </div>
 </template>
 
@@ -11,10 +9,7 @@
 // import Settings from "./components/Settings";
 
 export default {
-  name: "App",
-  data() {
-    return { shared: this.$root.$data.shared };
-  }
+  name: "App"
   // components: {
   //   Settings,
   //   Home
@@ -34,5 +29,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: black;
   color: #ffffff;
+}
+
+.btn {
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  margin-top: 3px;
 }
 </style>

@@ -1,18 +1,16 @@
 <template>
-  <div>
-    <!-- <h3>{{local}}</h3>
-    <b-button @click="onSave">save</b-button>
-    <b-button v-b-modal.stgsmodal>Launch demo modal</b-button>-->
-    <b-modal id="stgsmodal" title="Settings">
-      <b-form @submit="onSave">
-        <b-form-group label="My ID:">
-          <b-form-input v-model="local.localId"></b-form-input>
-        </b-form-group>
-        <b-form-group label="Remote ID:">
-          <b-form-input v-model="local.remoteId"></b-form-input>
-        </b-form-group>
-      </b-form>
-    </b-modal>
+  <div class="mainDiv p-2 h-100">
+    <h2>Settings</h2>
+    <b-form @submit="onSave" @reset="onReset">
+      <b-form-group label="My ID:">
+        <b-form-input v-model="stgs.localId"></b-form-input>
+      </b-form-group>
+      <b-form-group label="Remote ID:">
+        <b-form-input v-model="stgs.remoteId"></b-form-input>
+      </b-form-group>
+      <b-button type="reset">CANCEL</b-button>
+      <b-button type="submit" variant="primary">SAVE</b-button>
+    </b-form>
   </div>
 </template>
 
@@ -20,24 +18,32 @@
 export default {
   name: "Settings",
   mounted() {
-    this.local = { ...this.$root.$data.shared };
+    this.stgs = { ...this.$root.$data.stgs };
   },
   data() {
     return {
-      local: {}
+      stgs: {}
     };
   },
-
+  props: {
+    isOpen: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
   methods: {
     onSave(evt) {
-      alert("oi");
+      evt.preventDefault();
       console.log(evt);
-      Object.assign(this.$root.$data.shared, this.local);
+      Object.assign(this.$root.$data.stgs, this.stgs);
       this.$root.$data.saveToStorage();
+      this.$emit("saved");
     },
-    toggle() {
-      console.log("Toggle button clicked");
-      this.show = !this.show;
+    onReset(evt) {
+      evt.preventDefault();
+      this.stgs = { ...this.$root.$data.stgs };
+      this.$emit("canceled");
     },
     dismissed() {
       console.log("Alert dismissed");
@@ -45,3 +51,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.mainDiv {
+  background: rgb(0, 0, 50);
+}
+</style>

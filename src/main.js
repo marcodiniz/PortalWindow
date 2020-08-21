@@ -38,7 +38,7 @@ Vue.use(ToastPlugin);
 Vue.use(VueRouter);
 // Vue.use(Vuex);
 store.loadFromStorage();
-console.log(store.shared);
+console.log(store.stgs);
 Vue.config.productionTip = false;
 
 new Vue({

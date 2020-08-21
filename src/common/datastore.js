@@ -1,20 +1,22 @@
-export const store = {
-  shared: {
+export let store = {
+  stgs: {
     localId: "aaa",
     remoteId: "bbb"
   },
 
   loadFromStorage() {
-    if (localStorage.shared) {
-      Object.assign(
-        store,
-        localStorage.shared,
-        JSON.parse(localStorage.getItem("shared"))
-      );
+    if (localStorage.stgs) {
+      Object.assign(store.stgs, JSON.parse(localStorage.stgs));
+      console.log("loaded:");
+      console.log(localStorage.stgs);
     }
   },
 
   saveToStorage() {
-    localStorage.setItem("shared", JSON.stringify(store.shared));
+    console.log("previous:");
+    console.log(localStorage.stgs);
+    localStorage.setItem("stgs", JSON.stringify(store.stgs));
+    console.log("now:");
+    console.log(localStorage.stgs);
   }
 };
